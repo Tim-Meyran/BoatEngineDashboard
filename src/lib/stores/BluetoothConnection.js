@@ -62,7 +62,7 @@ async function exponentialBackoff(max, delay, toTry, success, fail) {
         const result = await toTry();
         success(result);
     } catch (error) {
-        alert(error)
+        //alert(error)
         if (max === 0) {
             return fail();
         }
