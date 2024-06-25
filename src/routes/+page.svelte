@@ -1,59 +1,35 @@
 <script>
-    import Counter from './Counter.svelte';
-    import welcome from '$lib/images/svelte-welcome.webp';
-    import welcome_fallback from '$lib/images/svelte-welcome.png';
-    import {temp} from "$lib/stores/Data.js";
+    import {rpm, speed, tmp1, tmp2, voltage, time} from "$lib/stores/Data.js";
     import {requestConnect} from "$lib/stores/BluetoothConnection.js";
+    import Field from "$lib/Field.svelte";
 </script>
 
 <svelte:head>
     <title>Home</title>
-    <meta name="description" content="Svelte demo app"/>
+    <meta name="Dashboard" content="Dashboard"/>
 </svelte:head>
 
-<section>
-    <h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp"/>
-				<img src={welcome_fallback} alt="Welcome"/>
-			</picture>
-		</span>
+<section class="grid-container">
 
-        to your new<br/>SvelteKit app
-    </h1>
+    <Field name="Time" value={$time}/>
+    <Field name="Speed" value={$speed} digitsSignificant={4} digitsFraction={1}/>
+    <Field name="RPM" value={$rpm} digitsSignificant={4}/>
+    <Field name="Temperature 1" value={$tmp1} digitsFraction="0"/>
+    <Field name="Temperature 2" value={$tmp2} digitsFraction="0"/>
+    <Field name="Voltage" value={$voltage}/>
 
-    {$temp}
-
-    <button on:click={requestConnect}>Connect</button>
 </section>
 
 <style>
     section {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex: 0.6;
+        flex-flow: row-reverse wrap;
+
     }
 
-    h1 {
-        width: 100%;
-    }
-
-    .welcome {
-        display: block;
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding: 0 0 calc(100% * 495 / 2048) 0;
-    }
-
-    .welcome img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        display: block;
+    .grid-container {
+        gap: 1em;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
     }
 </style>

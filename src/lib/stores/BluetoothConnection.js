@@ -1,4 +1,4 @@
-import {bytes, temp} from "$lib/stores/Data.js";
+import {bytes} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
 
 export var bluetoothDevice;
