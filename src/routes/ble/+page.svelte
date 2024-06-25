@@ -1,18 +1,5 @@
-<svelte:head>
-    <title>Home</title>
-    <meta name="description" content="Svelte demo app"/>
-</svelte:head>
-
-<section>
-    <button on:click={onButtonClick}>Connect</button>
-
-</section>
-
-
 <script>
-    import welcome from "$lib/images/svelte-welcome.webp";
-    import welcome_fallback from "$lib/images/svelte-welcome.png";
-    import Counter from "../Counter.svelte";
+
 
     async function onButtonClick() {
         let serviceUuid = "0x181a"
@@ -92,3 +79,14 @@
             ' (' + valueToReportType[v] + ')' : 'Unknown');
     }
 </script>
+
+<svelte:head>
+    <title>Home</title>
+    <meta name="description" content="Svelte demo app"/>
+</svelte:head>
+
+<section>
+    <button on:click={onButtonClick}>Connect</button>
+
+</section>
+
