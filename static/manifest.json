@@ -1,0 +1,35 @@
+{
+  "name": "Dashboard",
+  "display": "standalone",
+  "id": "outboard-dashboard",
+  "start_url": "/",
+  "background_color": "black",
+  "icons": [
+    {
+      "src": "favicon.webp",
+      "type": "image/webp",
+      "sizes": "144x144"
+    },
+    {
+      "src": "icon2.webp",
+      "type": "image/webp",
+      "sizes": "768x768"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot2.png",
+      "sizes": "1082x1422",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Dashboard"
+    },
+    {
+      "src": "screenshot1.png",
+      "sizes": "2402x1081",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Dashboard"
+    }
+  ]
+}
