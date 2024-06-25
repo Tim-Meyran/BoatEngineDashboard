@@ -2,7 +2,7 @@
   "name": "Dashboard",
   "display": "standalone",
   "id": "outboard-dashboard",
-  "start_url": "/",
+  "start_url": "/BoatEngineDashboard/",
   "background_color": "black",
   "icons": [
     {
