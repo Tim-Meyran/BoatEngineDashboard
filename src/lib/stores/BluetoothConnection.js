@@ -1,6 +1,8 @@
 import {bytes} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
+import {writable} from "svelte/store";
 
+export const connected = writable(false);
 export var bluetoothDevice;
 
 let serviceUuid = "0x181a"
@@ -38,17 +40,20 @@ async function connect() {
                 console.log("Received ", b)
                 bytes.set(b)
             });
+            connected.set(true)
         },
         function success() {
             console.log('> Bluetooth Device connected.');
         },
         function fail() {
             time('Failed to reconnect.');
+            connected.set(false)
         });
 }
 
 function onDisconnected() {
     console.log('> Bluetooth Device disconnected');
+    connected.set(false)
     connect();
 }
 

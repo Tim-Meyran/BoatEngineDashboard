@@ -1,6 +1,5 @@
 <script>
     import {rpm, speed, tmp1, tmp2, voltage, time} from "$lib/stores/Data.js";
-    import {requestConnect} from "$lib/stores/BluetoothConnection.js";
     import Field from "$lib/Field.svelte";
 </script>
 
@@ -14,8 +13,8 @@
     <Field name="Time" value={$time}/>
     <Field name="Speed" value={$speed} digitsSignificant={4} digitsFraction={1}/>
     <Field name="RPM" value={$rpm} digitsSignificant={4}/>
-    <Field name="Temperature 1" value={$tmp1} digitsFraction="0"/>
-    <Field name="Temperature 2" value={$tmp2} digitsFraction="0"/>
+    <Field name="Temp 1" value={$tmp1} digitsFraction="0"/>
+    <Field name="Temp 2" value={$tmp2} digitsFraction="0"/>
     <Field name="Voltage" value={$voltage}/>
 
 </section>
