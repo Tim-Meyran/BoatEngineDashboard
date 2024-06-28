@@ -27,28 +27,25 @@ export async function requestConnect() {
 }
 
 async function connect() {
-    await exponentialBackoff(3 /* max retries */, 2 /* seconds delay */,
-        async function toTry() {
-            time('Connecting to Bluetooth Device... ');
-            const device = await bluetoothDevice.gatt.connect();
-            console.log('Connected to ', device)
-            const service = await device.getPrimaryService(serviceUuid);
-            const characteristic = await service.getCharacteristic(characteristicUuid);
-            await characteristic.startNotifications()
-            characteristic.addEventListener('characteristicvaluechanged', e => {
-                const b = characteristic.value
-                console.log("Received ", b)
-                bytes.set(b)
-            });
-            connected.set(true)
-        },
-        function success() {
-            console.log('> Bluetooth Device connected.');
-        },
-        function fail() {
-            time('Failed to reconnect.');
-            connected.set(false)
-        });
+    //await exponentialBackoff(3 /* max retries */, 10 /* seconds delay */, async function toTry() {
+    time('Connecting to Bluetooth Device... ');
+    const device = await bluetoothDevice.gatt.connect();
+    console.log('Connected to ', device)
+    const service = await device.getPrimaryService(serviceUuid);
+    const characteristic = await service.getCharacteristic(characteristicUuid);
+    await characteristic.startNotifications()
+    characteristic.addEventListener('characteristicvaluechanged', e => {
+        const b = characteristic.value
+        console.log("Received ", b)
+        bytes.set(b)
+    });
+    connected.set(true)
+    /*}, function success() {
+        console.log('> Bluetooth Device connected.');
+    }, function fail() {
+        time('Failed to reconnect.');
+        connected.set(false)
+    });*/
 }
 
 function onDisconnected() {
