@@ -15,7 +15,10 @@ export async function requestConnect() {
         console.log('Requesting any Bluetooth Device...');
         bluetoothDevice = await navigator.bluetooth.requestDevice({
             // filters: [...] <- Prefer filters to save energy & show relevant devices.
-            acceptAllDevices: true
+            filters: [
+                {services: [serviceUuid]}
+            ],
+            acceptAllDevices: false, optionalServices: [serviceUuid]
         });
         bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
         connect();
