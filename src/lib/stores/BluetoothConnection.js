@@ -5,8 +5,9 @@ import {get, writable} from "svelte/store";
 export const connected = writable(false);
 export var bluetoothDevice;
 
-let serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
-//let serviceUuidInt = parseInt(serviceUuid);
+//let serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
+let serviceUuid = "0x181a"
+serviceUuid = parseInt(serviceUuid);
 let characteristicUuid = "temperature"
 
 export async function requestConnect() {
