@@ -1,6 +1,6 @@
 <script>
     import './styles.css';
-    import {connected, requestConnect} from "$lib/stores/BluetoothConnection.js";
+    import {connected, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
     import PwaInstall from "$lib/PwaInstall.svelte";
 
     $: connectionString = $connected ? "Connected" : "Not connected"
@@ -37,7 +37,12 @@
                 </li>
 
                 <li>
-                    <button on:click={requestConnect}>Connect</button>
+                    {#if $connected}
+                        <button on:click={disconnect}>Disconnect</button>
+                    {:else }
+                        <button on:click={requestConnect}>Connect</button>
+
+                    {/if}
                 </li>
 
                 <li>
