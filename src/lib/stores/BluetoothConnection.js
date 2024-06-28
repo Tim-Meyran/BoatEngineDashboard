@@ -22,7 +22,7 @@ export async function requestConnect() {
         const device = await bluetoothDevice.gatt.connect();
         console.log('Connected to ', device)
 
-        const services = await bluetoothDevice.gatt.getPrimaryServices()
+        const services = await device.getPrimaryServices()
         console.log(services)
         if (!services || services.length === 0) {
             console.error("Found no services")
