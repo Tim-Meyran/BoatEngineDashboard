@@ -1,5 +1,5 @@
 <script>
-
+    import {bytes} from "$lib/stores/Data.js";
 
     async function onButtonClick() {
         let serviceUuid = "0x181a"
@@ -40,6 +40,9 @@
             characteristic.addEventListener('characteristicvaluechanged', e => {
                 console.log(e)
                 console.log(characteristic.value)
+                if(characteristic.value){
+                    bytes.set(characteristic.value)
+                }
             });
 
             console.log('Getting Descriptors...');

@@ -11,11 +11,11 @@
 <section class="grid-container">
 
     <Field name="Time" value={$time}/>
-    <Field name="Speed" value={$speed} digitsSignificant={4} digitsFraction={1}/>
+    <Field name="Speed" value={$speed} digitsSignificant={3}/>
     <Field name="RPM" value={$rpm} digitsSignificant={4}/>
     <Field name="Temp 1" value={$tmp1} digitsFraction="0"/>
     <Field name="Temp 2" value={$tmp2} digitsFraction="0"/>
-    <Field name="Voltage" value={$voltage}/>
+    <Field name="Voltage" value={$voltage} digitsFraction="1" />
 
 </section>
 
