@@ -20,6 +20,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@picocss/pico": "^2.0.6"
+		"@picocss/pico": "^2.0.6",
+		"chart.js": "^4.4.3"
 	}
 }

@@ -1,5 +1,6 @@
 <script>
     import {tmp1} from "$lib/stores/Data.js";
+    import Chart from "$lib/Chart.svelte";
 
     export let name = "Name"
     export let value = ""
@@ -10,6 +11,9 @@
 
 
 <article>
+    <!--<div class="chart">
+        <Chart/>
+    </div>-->
     <header>{name}</header>
     {value.toLocaleString(undefined, {
         minimumFractionDigits: digitsFraction,
@@ -20,6 +24,12 @@
 <style>
     article {
         min-width: 8rem;
+    }
 
+    .chart {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
     }
 </style>

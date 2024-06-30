@@ -1,6 +1,7 @@
 <script>
-    import {rpm, speed, tmp1, tmp2, voltage, time} from "$lib/stores/Data.js";
+    import {rpm, speed, tmp1, tmp2, voltage, time, lambda1, lambda2, lambda3} from "$lib/stores/Data.js";
     import Field from "$lib/Field.svelte";
+    import Chart from "$lib/Chart.svelte";
 </script>
 
 <svelte:head>
@@ -15,9 +16,16 @@
     <Field name="RPM" value={$rpm} digitsSignificant={4}/>
     <Field name="Temp 1" value={$tmp1} digitsFraction="0"/>
     <Field name="Temp 2" value={$tmp2} digitsFraction="0"/>
-    <Field name="Voltage" value={$voltage} digitsFraction="1" />
+    <Field name="Voltage" value={$voltage} digitsFraction="1"/>
+    <Field name="Lambda 1" value={$lambda1} digitsFraction="2"/>
+    <Field name="Lambda 2" value={$lambda2} digitsFraction="2"/>
+    <Field name="Lambda 3" value={$lambda3} digitsFraction="2"/>
 
 </section>
+
+<!--<section>
+    <Chart/>
+</section>-->
 
 <style>
     section {
