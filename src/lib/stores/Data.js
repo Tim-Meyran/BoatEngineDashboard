@@ -35,7 +35,7 @@ function updateTime() {
         + currentDate.getSeconds();
     time.set(datetime)
 
-    speed.update(old => Math.min(Math.max(0, old + -5.0 + Math.random() * 10.0), 150.0))
+    /*speed.update(old => Math.min(Math.max(0, old + -5.0 + Math.random() * 10.0), 150.0))
     rpm.update(old => Math.min(Math.max(0, old + -50.0 + Math.random() * 100.0), 8500.0))
     tmp1.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
     tmp2.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
@@ -44,9 +44,9 @@ function updateTime() {
         ({
             lat: Math.min(Math.max(-20, lat + -0.001 + Math.random() * 0.002), 20),
             lon: Math.min(Math.max(-20, lon + -0.001 + Math.random() * 0.002), 20)
-        }))
+        }))*/
 
-    setTimeout(updateTime, 200)
+    setTimeout(updateTime, 1000)
 }
 
 updateTime()
