@@ -1,36 +1,93 @@
 <script>
     import Chart from 'chart.js/auto';
 
-    import { onMount } from 'svelte';
+    import {onMount} from 'svelte';
 
-    let chartValues = [20, 10, 5, 2, 20, 30, 45];
-    let chartLabels = ['1', '2', '3', '4', '5', '6', '7'];
     let ctx;
     let chartCanvas;
+    var chart = undefined
+
+    export let value
+    export let maxValues = 20
+    let labelCounter = 0
+    let lastY = 0
+
+    export function addValue(v) {
+        if (chart) {
+            labelCounter++
+            chart.data.labels.push(labelCounter);
+            chart.data.datasets[0].data.push(v)
+
+            if (chart.data.datasets[0].data.length > maxValues) {
+                chart.data.labels.shift()
+                chart.data.datasets[0].data.shift()
+            }
+            chart.update();
+        }
+    }
+
+    $: if (value && chart) {
+        addValue(value)
+    }
+
+    const animation = {
+        x: {
+            duration: 100
+        },
+        y: {
+            duration: 0,
+        }
+    };
 
     onMount(async (promise) => {
         ctx = chartCanvas.getContext('2d');
-        var chart = new Chart(ctx, {
+        chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: chartLabels,
+                labels: [],
                 datasets: [{
-                    label: 'Revenue',
+                    label: 'Data',
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: chartValues
+                    data: [],
+                    /*stepped: true*/
                 }]
             },
             options: {
                 plugins: {
                     legend: {
                         display: false,
+                    },
+                    tooltip: {
+                        enabled: false
                     }
+                    /*decimation: {
+                        enabled: true,
+                    }*/
                 },
                 responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false,
+                        min: labelCounter
+                    },
+                    y: {
+                        display: true,
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                },
+                animation
             }
         });
 
+        for (let i = 0; i < maxValues; i++) {
+            addValue(value)
+        }
     });
 
 </script>

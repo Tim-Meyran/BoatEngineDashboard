@@ -2,6 +2,8 @@
     import './styles.css';
     import {connected, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
     import PwaInstall from "$lib/PwaInstall.svelte";
+    import {time} from "$lib/stores/Data.js";
+    import Field from "$lib/Field.svelte";
 
     $: connectionString = $connected ? "Connected" : "Not connected"
     $: connectionBtnString = $connected ? "Connected" : "Not connected"
@@ -21,6 +23,7 @@
         <nav>
             <ul>
                 <li><strong><kbd>DASHBOARD</kbd></strong></li>
+                {$time}
             </ul>
 
             <ul>
