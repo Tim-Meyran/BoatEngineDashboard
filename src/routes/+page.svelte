@@ -1,5 +1,5 @@
 <script>
-    import {rpm, speed, tmp1, tmp2, voltage, time, lambda1, lambda2, lambda3} from "$lib/stores/Data.js";
+    import {rpm, speed, tripDistance, tmp1, tmp2, voltage, time, lambda1, lambda2, lambda3} from "$lib/stores/Data.js";
     import Field from "$lib/Field.svelte";
     import Chart from "$lib/Chart.svelte";
     import GraphField from "$lib/GraphField.svelte";
@@ -12,6 +12,7 @@
 
 <section class="grid-container">
     <GraphField name="Speed" value={$speed} unit="km/h" digitsSignificant={3} min={0}/>
+    <GraphField name="Trip" value={$tripDistance} unit="km" min={0}/>
     <GraphField name="RPM" value={$rpm} digitsSignificant={4} min={0} max={8000}/>
     <GraphField name="Temp1" value={$tmp1} unit="°C" digitsFraction="0"/>
     <GraphField name="Temp2" value={$tmp2} unit="°C" digitsFraction="0"/>

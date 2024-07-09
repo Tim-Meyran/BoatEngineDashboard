@@ -13,7 +13,8 @@ export const voltage = writable(0);
 export const lambda1 = writable(1);
 export const lambda2 = writable(1);
 export const lambda3 = writable(1);
-export const coordinates = writable({lat: 0.0, lon: 0.0});
+export const coordinates = writable(undefined);
+export const tripDistance = writable(0);
 export const time = writable("");
 export const demoMode = writable(false);
 
@@ -47,9 +48,7 @@ demoMode.subscribe(demo => {
 
 function updateTime() {
     const currentDate = new Date();
-    const datetime = currentDate.getHours() + ":"
-        + currentDate.getMinutes() + ":"
-        + currentDate.getSeconds();
+    const datetime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
     time.set(datetime)
 
     if (get(demoMode)) {
