@@ -2,7 +2,7 @@
     import './styles.css';
     import {connected, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
     import PwaInstall from "$lib/PwaInstall.svelte";
-    import {time} from "$lib/stores/Data.js";
+    import {demoMode, time} from "$lib/stores/Data.js";
     import Field from "$lib/Field.svelte";
 
     $: connectionString = $connected ? "Connected" : "Not connected"
@@ -27,6 +27,14 @@
             </ul>
 
             <ul>
+                {#if !$connected}
+                    <li>
+                        <label>
+                            Demo
+                            <input name="terms" type="checkbox" role="switch" bind:checked={$demoMode} />
+                        </label>
+                    </li>
+                {/if}
                 <li>
                     {#if $connected}
                         <ins>Connected</ins>

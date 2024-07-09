@@ -8,9 +8,16 @@
     var chart = undefined
 
     export let value
+
+    export let min = undefined
+    export let max = undefined
     export let maxValues = 20
     let labelCounter = 0
     let lastY = 0
+
+    let yScale = {
+        display: true
+    }
 
     export function addValue(v) {
         if (chart) {
@@ -40,6 +47,11 @@
     };
 
     onMount(async (promise) => {
+        if(min !==undefined) yScale.min = min
+        if(max !==undefined) yScale.max = max
+
+        console.log(min,max, yScale)
+
         ctx = chartCanvas.getContext('2d');
         chart = new Chart(ctx, {
             type: 'line',
@@ -72,9 +84,7 @@
                         display: false,
                         min: labelCounter
                     },
-                    y: {
-                        display: true,
-                    }
+                    y: yScale
                 },
                 elements: {
                     point: {

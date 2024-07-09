@@ -7,6 +7,9 @@
     export let unit = ""
     export let digitsFraction = 0
     export let digitsSignificant = 0
+
+    export let min = undefined
+    export let max = undefined
 </script>
 
 
@@ -24,7 +27,7 @@
     </header>
 
     <div class="chart">
-        <Chart value={value} maxValues="30"/>
+        <Chart value={value} maxValues="30" min={min} max={max}/>
     </div>
 </article>
 

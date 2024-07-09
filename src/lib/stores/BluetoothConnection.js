@@ -1,4 +1,4 @@
-import {bytes} from "$lib/stores/Data.js";
+import {bytes, demoMode} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
 import {get, writable} from "svelte/store";
 
@@ -12,6 +12,8 @@ let characteristicUuid = "temperature"
 
 export async function requestConnect() {
     try {
+        demoMode.set(false)
+
         console.log('Requesting any Bluetooth Device...');
         bluetoothDevice = await navigator.bluetooth.requestDevice({
             filters: [{services: [serviceUuid]}], acceptAllDevices: false, optionalServices: [serviceUuid]

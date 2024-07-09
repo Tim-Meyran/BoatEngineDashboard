@@ -13,6 +13,7 @@ export const lambda2 = writable(1);
 export const lambda3 = writable(1);
 export const coordinates = writable({lat: 0.0, lon: 0.0});
 export const time = writable("");
+export const demoMode = writable(false);
 
 bytes.subscribe(e => {
     console.log('Update Bytes', e)
@@ -28,6 +29,20 @@ bytes.subscribe(e => {
     }
 })
 
+demoMode.subscribe(demo => {
+    if (!demo) {
+        speed.set(0)
+        rpm.set(0)
+        maxRpm.set(0)
+        tmp1.set(0)
+        tmp2.set(0)
+        voltage.set(0)
+        lambda1.set(0)
+        lambda2.set(0)
+        lambda3.set(0)
+    }
+})
+
 function updateTime() {
     const currentDate = new Date();
     const datetime = currentDate.getHours() + ":"
@@ -35,17 +50,17 @@ function updateTime() {
         + currentDate.getSeconds();
     time.set(datetime)
 
-    /*speed.update(old => Math.min(Math.max(0, old + -5.0 + Math.random() * 10.0), 150.0))
-    rpm.update(old => Math.min(Math.max(0, old + -50.0 + Math.random() * 100.0), 8500.0))
-    tmp1.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
-    tmp2.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
-    voltage.update(old => Math.min(Math.max(10.4, old + -0.1 + Math.random() * 0.2), 14.8))
-    coordinates.update(({lat, lon}) =>
-        ({
+    if (get(demoMode)) {
+        speed.update(old => Math.min(Math.max(0, old + -5.0 + Math.random() * 10.0), 150.0))
+        rpm.update(old => Math.min(Math.max(0, old + -50.0 + Math.random() * 100.0), 8500.0))
+        tmp1.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
+        tmp2.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
+        voltage.update(old => Math.min(Math.max(10.4, old + -0.1 + Math.random() * 0.2), 14.8))
+        coordinates.update(({lat, lon}) => ({
             lat: Math.min(Math.max(-20, lat + -0.001 + Math.random() * 0.002), 20),
             lon: Math.min(Math.max(-20, lon + -0.001 + Math.random() * 0.002), 20)
-        }))*/
-
+        }))
+    }
     setTimeout(updateTime, 1000)
 }
 
