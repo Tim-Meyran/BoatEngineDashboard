@@ -1,6 +1,7 @@
 import {bytes, demoMode} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
 import {get, writable} from "svelte/store";
+import {initGps} from "$lib/stores/Gps.js";
 
 export const connected = writable(false);
 export var bluetoothDevice;
@@ -12,6 +13,7 @@ let characteristicUuid = "temperature"
 
 export async function requestConnect() {
     try {
+        initGps()
         demoMode.set(false)
 
         console.log('Requesting any Bluetooth Device...');

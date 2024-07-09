@@ -1,9 +1,11 @@
 <script>
     import './styles.css';
     import {connected, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
+    import {initGps} from "$lib/stores/Gps.js";
     import PwaInstall from "$lib/PwaInstall.svelte";
     import {demoMode, time} from "$lib/stores/Data.js";
     import Field from "$lib/Field.svelte";
+    import {onMount} from "svelte";
 
     $: connectionString = $connected ? "Connected" : "Not connected"
     $: connectionBtnString = $connected ? "Connected" : "Not connected"
@@ -31,7 +33,7 @@
                     <li>
                         <label>
                             Demo
-                            <input name="terms" type="checkbox" role="switch" bind:checked={$demoMode} />
+                            <input name="terms" type="checkbox" role="switch" bind:checked={$demoMode}/>
                         </label>
                     </li>
                 {/if}
@@ -51,7 +53,7 @@
                     {#if $connected}
                         <button on:click={disconnect}>Disconnect</button>
                     {:else }
-                        <button on:click={requestConnect}>Connect</button>
+                        <button on:click={e => initGps() && requestConnect()}>Connect</button>
 
                     {/if}
                 </li>

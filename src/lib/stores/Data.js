@@ -1,5 +1,7 @@
 import {get, writable} from 'svelte/store';
 import {requestConnect} from "$lib/stores/BluetoothConnection.js";
+import {onMount} from "svelte";
+import {initGps} from "$lib/stores/Gps.js";
 
 export const bytes = writable(undefined);
 export const speed = writable(0);
