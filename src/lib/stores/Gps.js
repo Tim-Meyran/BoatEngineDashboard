@@ -1,4 +1,4 @@
-import {coordinates, speed, tripDistance} from "$lib/stores/Data.js";
+import {coordinates, lastGpsPing, speed, tripDistance} from "$lib/stores/Data.js";
 import {get} from "svelte/store";
 
 export function initGps() {
@@ -25,6 +25,7 @@ function updatePosition(coords) {
             tripDistance.update(value => value + dist)
         }
         coordinates.set({lat: coords.latitude, lon: coords.longitude})
+        lastGpsPing.set(new Date().getMilliseconds())
     }
 }
 

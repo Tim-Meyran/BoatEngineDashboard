@@ -5,6 +5,7 @@ import {initGps} from "$lib/stores/Gps.js";
 
 export const bytes = writable(undefined);
 export const speed = writable(0);
+export const lastGpsPing = writable(0);
 export const rpm = writable(0);
 export const maxRpm = writable(0);
 export const tmp1 = writable(0);

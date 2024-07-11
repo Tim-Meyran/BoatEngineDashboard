@@ -1,6 +1,6 @@
 <script>
     import './styles.css';
-    import {connected, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
+    import {connected, connecting, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
     import {initGps} from "$lib/stores/Gps.js";
     import PwaInstall from "$lib/PwaInstall.svelte";
     import {demoMode, time} from "$lib/stores/Data.js";
@@ -24,24 +24,26 @@
     <header class="container">
         <nav>
             <ul>
-                <li><strong><kbd>DASHBOARD</kbd></strong></li>
-                {$time}
+                <!--<li><strong><kbd>DASHBOARD</kbd></strong></li>-->
+                <li>{$time}</li>
             </ul>
 
             <ul>
-                {#if !$connected}
+                <!--{#if !$connected}
                     <li>
                         <label>
                             Demo
                             <input name="terms" type="checkbox" role="switch" bind:checked={$demoMode}/>
                         </label>
                     </li>
-                {/if}
+                {/if}-->
                 <li>
                     {#if $connected}
                         <ins>Connected</ins>
-                    {:else }
+                    {:else if $connecting}
                         <del>Not Connected</del>
+                    {:else}
+                        <i>Not Connected</i>
                     {/if}
                 </li>
 
@@ -51,10 +53,9 @@
 
                 <li>
                     {#if $connected}
-                        <button on:click={disconnect}>Disconnect</button>
-                    {:else }
-                        <button on:click={e => initGps() && requestConnect()}>Connect</button>
-
+                        <button class="outline contrast" aria-busy="true" on:click={disconnect}>Disconnect</button>
+                    {:else}
+                        <button on:click={requestConnect}>Connect</button>
                     {/if}
                 </li>
 

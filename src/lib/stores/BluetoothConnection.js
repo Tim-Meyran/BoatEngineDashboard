@@ -4,6 +4,8 @@ import {get, writable} from "svelte/store";
 import {initGps} from "$lib/stores/Gps.js";
 
 export const connected = writable(false);
+export const connecting = writable(false);
+export const connectState = writable("Not Connected");
 export var bluetoothDevice;
 
 //let serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
@@ -15,6 +17,8 @@ export async function requestConnect() {
     try {
         initGps()
         demoMode.set(false)
+        connectState.set("Connecting")
+        connecting.set(true)
 
         console.log('Requesting any Bluetooth Device...');
         bluetoothDevice = await navigator.bluetooth.requestDevice({
@@ -26,6 +30,7 @@ export async function requestConnect() {
         time('Connecting to Bluetooth Device... ');
         const device = await bluetoothDevice.gatt.connect();
         console.log('Connected to ', device)
+        connectState.set("Connected")
 
         const services = await device.getPrimaryServices()
         console.log(services)
@@ -43,9 +48,13 @@ export async function requestConnect() {
             bytes.set(b)
         });
         connected.set(true)
+        connecting.set(false)
     } catch (error) {
         console.log('Argh! ' + error);
         bluetoothDevice = null;
+        connected.set(false)
+        connecting.set(false)
+        alert(error)
     }
     return bluetoothDevice
 }

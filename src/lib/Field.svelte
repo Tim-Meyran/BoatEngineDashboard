@@ -2,6 +2,8 @@
 
     export let name = "Name"
     export let value = ""
+
+    export let unit = ""
     export let digitsFraction = 0
     export let digitsSignificant = 10
 
@@ -10,17 +12,20 @@
 
 
 <article>
-    <header>{name}</header>
-    {value.toLocaleString(undefined, {
+    {name}
+    <kbd style="float: right; width: 60%">{value.toLocaleString(undefined, {
         minimumFractionDigits: digitsFraction,
         maximumFractionDigits: digitsFraction
-    })}
+    }).padStart(digitsSignificant, '0')} <i>{unit}</i></kbd>
 </article>
 
 <style>
     article {
         min-width: 8rem;
+    }
 
+    kbd{
+        text-align:right;
     }
 
     .card {
