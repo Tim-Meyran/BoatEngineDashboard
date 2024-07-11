@@ -5,7 +5,10 @@ import {initGps} from "$lib/stores/Gps.js";
 
 export const bytes = writable(undefined);
 export const speed = writable(0);
-export const lastGpsPing = writable(0);
+export const maxSpeed = writable(0);
+speed.subscribe(s => {
+    maxSpeed.update(old => Math.max(old,s))
+})
 export const rpm = writable(0);
 export const maxRpm = writable(0);
 export const tmp1 = writable(0);
@@ -17,6 +20,13 @@ export const lambda3 = writable(1);
 export const coordinates = writable(undefined);
 export const tripDistance = writable(0);
 export const time = writable("");
+export const lastGpsPing = writable(new Date().valueOf());
+export const timeSinceLastGps = writable(new Date().valueOf());
+
+time.subscribe(e => {
+    timeSinceLastGps.set(Math.round(new Date().valueOf() - get(lastGpsPing)) / 1000)
+})
+
 export const demoMode = writable(false);
 
 bytes.subscribe(e => {

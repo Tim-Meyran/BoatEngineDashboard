@@ -59,7 +59,9 @@ export async function requestConnect() {
 }
 
 export function disconnect() {
+    bytes.set(new ArrayBuffer(10))
     connected.set(false)
+    connecting.set(false)
     if (bluetoothDevice === undefined) {
         return;
     }
@@ -75,12 +77,11 @@ export function disconnect() {
 
 
 function onDisconnected() {
-    console.log('> Bluetooth Device disconnected');
-
-    if (get(connected)) {
+    console.log('Bluetooth Device disconnected');
+    /*if (get(connected)) {
         console.log("Reconnect")
         requestConnect();
-    }
+    }*/
 }
 
 /* Utils */

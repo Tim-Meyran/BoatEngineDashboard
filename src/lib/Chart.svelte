@@ -50,7 +50,7 @@
         if(min !==undefined) yScale.min = min
         if(max !==undefined) yScale.max = max
 
-        console.log(min,max, yScale)
+        //console.log(min,max, yScale)
 
         ctx = chartCanvas.getContext('2d');
         chart = new Chart(ctx, {

@@ -1,4 +1,4 @@
-import {coordinates, lastGpsPing, speed, tripDistance} from "$lib/stores/Data.js";
+import {coordinates, lastGpsPing, speed, time, tripDistance} from "$lib/stores/Data.js";
 import {get} from "svelte/store";
 
 export function initGps() {

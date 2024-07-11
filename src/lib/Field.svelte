@@ -13,7 +13,7 @@
 
 <article>
     {name}
-    <kbd style="float: right; width: 60%">{value.toLocaleString(undefined, {
+    <kbd style="float: right; width: 70%">{value.toLocaleString(undefined, {
         minimumFractionDigits: digitsFraction,
         maximumFractionDigits: digitsFraction
     }).padStart(digitsSignificant, '0')} <i>{unit}</i></kbd>
