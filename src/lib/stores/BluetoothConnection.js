@@ -15,7 +15,6 @@ let characteristicUuid = "temperature"
 
 export async function requestConnect() {
     try {
-        initGps()
         demoMode.set(false)
         connectState.set("Connecting")
         connecting.set(true)

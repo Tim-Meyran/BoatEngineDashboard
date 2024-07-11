@@ -25,7 +25,7 @@ function updatePosition(coords) {
             tripDistance.update(value => value + dist)
         }
         coordinates.set({lat: coords.latitude, lon: coords.longitude})
-        lastGpsPing.set(new Date().getMilliseconds())
+        lastGpsPing.set(new Date().valueOf())
     }
 }
 

@@ -37,13 +37,17 @@
                         </label>
                     </li>
                 {/if}-->
+
+                <li>
+                    <button class="outline contrast" on:click={initGps}>GPS</button>
+                </li>
                 <li>
                     {#if $connected}
                         <ins>Connected</ins>
                     {:else if $connecting}
-                        <del>Not Connected</del>
+                        <i aria-busy="true">Connecting</i>
                     {:else}
-                        <i>Not Connected</i>
+                        <del>Not Connected</del>
                     {/if}
                 </li>
 
@@ -53,7 +57,7 @@
 
                 <li>
                     {#if $connected}
-                        <button class="outline contrast" aria-busy="true" on:click={disconnect}>Disconnect</button>
+                        <button class="outline contrast" on:click={disconnect}>Disconnect</button>
                     {:else}
                         <button on:click={requestConnect}>Connect</button>
                     {/if}

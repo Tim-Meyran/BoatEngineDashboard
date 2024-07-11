@@ -15,9 +15,9 @@
     import GraphField from "$lib/GraphField.svelte";
     import Field from "$lib/Field.svelte";
 
-    let lastGps = new Date().getMilliseconds()
+    let lastGps = new Date().valueOf()
     $: if ($time) {
-        lastGps = new Date().getMilliseconds() - $lastGpsPing
+        lastGps = new Date().valueOf() - $lastGpsPing
     }
 
 </script>
