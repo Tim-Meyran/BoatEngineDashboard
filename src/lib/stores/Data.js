@@ -6,9 +6,6 @@ import {initGps} from "$lib/stores/Gps.js";
 export const bytes = writable(undefined);
 export const speed = writable(0);
 export const maxSpeed = writable(0);
-speed.subscribe(s => {
-    maxSpeed.update(old => Math.max(old,s))
-})
 export const rpm = writable(0);
 export const maxRpm = writable(0);
 export const tmp1 = writable(0);
@@ -27,6 +24,10 @@ time.subscribe(e => {
     timeSinceLastGps.set(Math.round(new Date().valueOf() - get(lastGpsPing)) / 1000)
 })
 
+speed.subscribe(s => {
+    maxSpeed.update(old => Math.max(old, s))
+})
+
 export const demoMode = writable(false);
 
 bytes.subscribe(e => {
@@ -43,17 +44,31 @@ bytes.subscribe(e => {
     }
 })
 
+export function resetTrip() {
+    tripDistance.set(0)
+}
+
+export function resetData() {
+    bytes.set(0)
+    speed.set(0)
+    maxSpeed.set(0)
+    rpm.set(0)
+    maxRpm.set(0)
+    tmp1.set(0)
+    tmp2.set(0)
+    voltage.set(0)
+    lambda1.set(0)
+    lambda2.set(0)
+    lambda3.set(0)
+    coordinates.set(0)
+    tripDistance.set(0)
+    lastGpsPing.set(0)
+    timeSinceLastGps.set(0)
+}
+
 demoMode.subscribe(demo => {
     if (!demo) {
-        speed.set(0)
-        rpm.set(0)
-        maxRpm.set(0)
-        tmp1.set(0)
-        tmp2.set(0)
-        voltage.set(0)
-        lambda1.set(0)
-        lambda2.set(0)
-        lambda3.set(0)
+       resetData()
     }
 })
 

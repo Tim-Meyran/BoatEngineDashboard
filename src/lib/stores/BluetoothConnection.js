@@ -1,4 +1,4 @@
-import {bytes, demoMode} from "$lib/stores/Data.js";
+import {bytes, demoMode, resetData} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
 import {get, writable} from "svelte/store";
 import {initGps} from "$lib/stores/Gps.js";
@@ -62,6 +62,7 @@ export function disconnect() {
     bytes.set(new ArrayBuffer(10))
     connected.set(false)
     connecting.set(false)
+    resetData()
     if (bluetoothDevice === undefined) {
         return;
     }
@@ -73,6 +74,7 @@ export function disconnect() {
         console.log('> Bluetooth Device is already disconnected');
     }
     bluetoothDevice = null
+    resetData()
 }
 
 

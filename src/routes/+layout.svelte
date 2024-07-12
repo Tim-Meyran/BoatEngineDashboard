@@ -6,17 +6,14 @@
     import {demoMode, time} from "$lib/stores/Data.js";
     import Field from "$lib/Field.svelte";
     import {onMount} from "svelte";
+    import Modal from "$lib/Modal.svelte";
+    import RequestGps from "$lib/RequestGps.svelte";
 
     $: connectionString = $connected ? "Connected" : "Not connected"
     $: connectionBtnString = $connected ? "Connected" : "Not connected"
 
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-        } else if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-    }
+    let showOptions = false
+
 </script>
 
 <div class="app">
@@ -29,45 +26,38 @@
             </ul>
 
             <ul>
-                <!--{#if !$connected}
-                    <li>
-                        <label>
-                            Demo
-                            <input name="terms" type="checkbox" role="switch" bind:checked={$demoMode}/>
-                        </label>
-                    </li>
-                {/if}-->
-
-                <li>
-                    <button class="outline contrast" on:click={initGps}>GPS</button>
-                </li>
                 <li>
                     {#if $connected}
-                        <ins>Connected</ins>
+                        <button class="pico-color-green-500" on:click={disconnect}>Disconnect</button>
                     {:else if $connecting}
-                        <i aria-busy="true">Connecting</i>
+                        <button aria-busy="true" class="outline pico-color-red-500" on:click={disconnect}>Cancel
+                        </button>
                     {:else}
-                        <del>Not Connected</del>
+                        <button class="" on:click={requestConnect}>Connect</button>
                     {/if}
                 </li>
 
-                <li>
-                    <PwaInstall/>
-                </li>
 
-                <li>
-                    {#if $connected}
-                        <button class="outline contrast" on:click={disconnect}>Disconnect</button>
-                    {:else}
-                        <button on:click={requestConnect}>Connect</button>
-                    {/if}
-                </li>
+                <li><a href="#" class="secondary">
+                    <button class="outline contrast" on:click={e => showOptions = true}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 6l16 0"/>
+                            <path d="M4 12l16 0"/>
+                            <path d="M4 18l16 0"/>
+                        </svg>
+                    </button>
+                </a></li>
 
-                <li>
-                    <button on:click={toggleFullScreen} class="outline contrast">&#x26F6;</button>
-                </li>
             </ul>
         </nav>
+
+        <RequestGps/>
+        <Modal open={showOptions}></Modal>
+        <PwaInstall/>
     </header>
     <main class="container">
         <slot/>
