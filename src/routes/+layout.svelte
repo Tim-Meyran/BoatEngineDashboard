@@ -28,7 +28,7 @@
             <ul>
                 <li>
                     {#if $connected}
-                        <button class="pico-color-green-500" on:click={disconnect}>Disconnect</button>
+                        <button class="pico-color-red-500" on:click={disconnect}>Disconnect</button>
                     {:else if $connecting}
                         <button aria-busy="true" class="outline pico-color-red-500" on:click={disconnect}>Cancel
                         </button>

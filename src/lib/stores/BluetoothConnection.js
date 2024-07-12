@@ -17,6 +17,7 @@ export async function requestConnect() {
     try {
         demoMode.set(false)
         connectState.set("Connecting")
+        connected.set(false)
         connecting.set(true)
 
         console.log('Requesting any Bluetooth Device...');
@@ -59,7 +60,7 @@ export async function requestConnect() {
 }
 
 export function disconnect() {
-    bytes.set(new ArrayBuffer(10))
+    //bytes.set(new ArrayBuffer(10))
     connected.set(false)
     connecting.set(false)
     resetData()
@@ -68,7 +69,7 @@ export function disconnect() {
     }
     console.log('Disconnecting from Bluetooth Device...');
 
-    if (bluetoothDevice.gatt.connected) {
+    if (bluetoothDevice && bluetoothDevice.gatt && bluetoothDevice.gatt.connected) {
         bluetoothDevice.gatt.disconnect();
     } else {
         console.log('> Bluetooth Device is already disconnected');
@@ -80,10 +81,13 @@ export function disconnect() {
 
 function onDisconnected() {
     console.log('Bluetooth Device disconnected');
-    /*if (get(connected)) {
+    if (get(connected)) {
         console.log("Reconnect")
         requestConnect();
-    }*/
+    }
+    /*    connected.set(false)
+        connecting.set(false)
+    */
 }
 
 /* Utils */
