@@ -3,7 +3,7 @@
     import {connected, connecting, requestConnect, disconnect} from "$lib/stores/BluetoothConnection.js";
     import {initGps} from "$lib/stores/Gps.js";
     import PwaInstall from "$lib/PwaInstall.svelte";
-    import {demoMode, time} from "$lib/stores/Data.js";
+    import {demoMode, time,lambdaHeater,mapSwitch} from "$lib/stores/Data.js";
     import Field from "$lib/Field.svelte";
     import {onMount} from "svelte";
     import Modal from "$lib/Modal.svelte";
@@ -26,6 +26,20 @@
             </ul>
 
             <ul>
+                <!--{#if $connected}-->
+                    <li>
+                        <label>
+                            Map Switch
+                            <input name="terms" type="checkbox" role="switch" bind:checked={$mapSwitch}/>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Lambda Heater
+                            <input name="terms" type="checkbox" role="switch" bind:checked={$lambdaHeater}/>
+                        </label>
+                    </li>
+                <!--{/if}-->
                 <li>
                     {#if $connected}
                         <button class="pico-color-red-500" on:click={disconnect}>Disconnect</button>
@@ -56,7 +70,7 @@
         </nav>
 
         <RequestGps/>
-        <Modal open={showOptions}></Modal>
+        <Modal bind:open={showOptions}></Modal>
         <PwaInstall/>
     </header>
     <main class="container">

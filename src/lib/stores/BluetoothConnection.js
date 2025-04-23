@@ -13,6 +13,8 @@ let serviceUuid = "0x181a"
 serviceUuid = parseInt(serviceUuid);
 let characteristicUuid = "temperature"
 
+let ble_service = null
+
 export async function requestConnect() {
     try {
         demoMode.set(false)
@@ -39,8 +41,8 @@ export async function requestConnect() {
             return
         }
 
-        const service = services[0]//await device.getPrimaryService(serviceUuid);
-        const characteristic = await service.getCharacteristic(characteristicUuid);
+        ble_service = services[0]//await device.getPrimaryService(serviceUuid);
+        const characteristic = await ble_service.getCharacteristic(characteristicUuid);
         await characteristic.startNotifications()
         characteristic.addEventListener('characteristicvaluechanged', e => {
             const b = characteristic.value
@@ -59,8 +61,23 @@ export async function requestConnect() {
     return bluetoothDevice
 }
 
+export async function send(value){
+    const characteristic = await service.getCharacteristic('heart_rate_control_point')
+    await characteristic.writeValue(value)
+      /*  .then(characteristic => {
+            // Writing 1 is the signal to reset energy expended.
+            const resetEnergyExpended = Uint8Array.of(1);
+            return characteristic.writeValue(resetEnergyExpended);
+        })
+        .then(_ => {
+            console.log('Energy expended has been reset.');
+        })
+        .catch(error => { console.error(error); });*/
+}
+
 export function disconnect() {
     //bytes.set(new ArrayBuffer(10))
+    ble_service = null
     connected.set(false)
     connecting.set(false)
     resetData()
@@ -81,6 +98,7 @@ export function disconnect() {
 
 function onDisconnected() {
     console.log('Bluetooth Device disconnected');
+    ble_service = null
     if (get(connected)) {
         console.log("Reconnect")
         requestConnect();

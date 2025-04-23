@@ -1,18 +1,5 @@
 <script>
-
-    import {
-        rpm,
-        speed,
-        tmp1,
-        tmp2,
-        voltage,
-        demoMode,
-        time,
-        lambda1,
-        lambda2,
-        lambda3,
-        lastGpsPing, timeSinceLastGps, maxRpm, maxSpeed, resetTrip, resetData
-    } from "$lib/stores/Data.js";
+    import {demoMode, timeSinceLastGps, resetTrip, resetData} from "$lib/stores/Data.js";
     import {initGps} from "$lib/stores/Gps.js";
 
     export let open = false
@@ -26,7 +13,6 @@
     }
 
 </script>
-
 
 <dialog open="{open}">
     <article>

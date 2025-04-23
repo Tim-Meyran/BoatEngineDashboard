@@ -1,17 +1,6 @@
 <script>
 
     import {
-        rpm,
-        speed,
-        tripDistance,
-        tmp1,
-        tmp2,
-        voltage,
-        demoMode,
-        time,
-        lambda1,
-        lambda2,
-        lambda3,
         lastGpsPing, timeSinceLastGps, maxRpm, maxSpeed
     } from "$lib/stores/Data.js";
     import {initGps} from "$lib/stores/Gps.js";
