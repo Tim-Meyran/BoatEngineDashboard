@@ -44,7 +44,7 @@
 
     <article>
         <h1>GPS Data</h1>
-        <p>{JSON.stringify(gpsData)}</p>
+        <p>{JSON.stringify($gpsData)}</p>
 
     </article>
 </dialog>
