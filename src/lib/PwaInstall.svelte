@@ -6,8 +6,8 @@
     onMount(() => {
         window.addEventListener("beforeinstallprompt", e => {
             //e.prompt()
-            //e.preventDefault()
             deferredInstallEvent = e
+            e.preventDefault()
         })
     })
 

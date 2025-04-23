@@ -5,10 +5,16 @@ export const allowGps = writable(false);
 export const calcGps = writable(true);
 let refreshTimer = null;
 
+const options = {
+    enableHighAccuracy: true, // Versucht, GPS zu nutzen
+    timeout: 10000,           // Maximal 10 Sekunden warten
+    maximumAge: 0             // Keine gecachten Daten verwenden
+};
+
 export function initGps() {
     if ("geolocation" in navigator && get(allowGps)) {
-        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 10_000, enableHighAccuracy: true})
-        clearInterval(refreshTimer)
+        navigator.geolocation.watchPosition(updateGps, e => console.log(e), options)
+        //clearInterval(refreshTimer)
         refreshTimer = setInterval(refreshGps, 200);
     } else {
         console.log("Gps is not available")
@@ -16,7 +22,14 @@ export function initGps() {
 }
 
 function refreshGps(){
-    navigator.geolocation.getCurrentPosition(updateGps, e => console.log(e), {timeout: 5_000, enableHighAccuracy: true})
+    if ("geolocation" in navigator && get(allowGps)) {
+        navigator.geolocation.getCurrentPosition(updateGps,
+            (error) => {
+                console.error('Fehler beim Abrufen des Standorts:', error.message);
+            },
+            options
+        );
+    }
 }
 
 function updateGps(pos) {
@@ -33,12 +46,12 @@ function updatePosition(pos) {
             let distKm = calcCrow(lastCoords.lat, lastCoords.lon, coords.latitude, coords.longitude)
             tripDistance.update(value => value + distKm)
 
-            if(get(calcGps)){
+            if(distKm > 0.0001 && get(calcGps)){
                 let timeDelta = pos.timestamp - lastCoords.timestamp
-                if(timeDelta > 0.0) {
+                if(timeDelta > 0.001) {
                     speed.set(distKm / (timeDelta / (1_000*60*60)))
                 }
-                console.log(distKm, timeDelta, pos.timestamp, lastCoords.timestamp, lastCoords)
+                //console.log(distKm, timeDelta, pos.timestamp, lastCoords.timestamp, lastCoords)
             }
         }
         coordinates.set({timestamp: pos.timestamp, lat: coords.latitude, lon: coords.longitude, accuracy: coords.accuracy})

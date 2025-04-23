@@ -8,7 +8,7 @@
         mapSwitch,
         lambdaHeater
     } from "$lib/stores/Data.js";
-    import {initGps,calcGps} from "$lib/stores/Gps.js";
+    import {initGps, calcGps, allowGps} from "$lib/stores/Gps.js";
 
     export let open = false
 
@@ -66,6 +66,7 @@
 
     <article>
         <h1>GPS Data</h1>
+        <p>{JSON.stringify($allowGps)}</p>
         <p>{JSON.stringify($gpsData)}</p>
 
     </article>
