@@ -3,7 +3,7 @@ import {get} from "svelte/store";
 
 export function initGps() {
     if ("geolocation" in navigator) {
-        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {})
+        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 5000})
     } else {
         console.log("Gps is not available")
     }
