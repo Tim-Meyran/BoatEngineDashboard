@@ -12,7 +12,6 @@
     export let max = undefined
 </script>
 
-
 <article>
     <header>
         {name}
