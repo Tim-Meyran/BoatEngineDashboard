@@ -7,16 +7,16 @@ let refreshTimer = null;
 
 export function initGps() {
     if ("geolocation" in navigator && get(allowGps)) {
-        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 5000, enableHighAccuracy: true})
+        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 10_000, enableHighAccuracy: true})
         clearInterval(refreshTimer)
-        refreshTimer = setInterval(refreshGps, 1000);
+        refreshTimer = setInterval(refreshGps, 200);
     } else {
         console.log("Gps is not available")
     }
 }
 
 function refreshGps(){
-    navigator.geolocation.getCurrentPosition(updateGps, e => console.log(e), {timeout: 5000, enableHighAccuracy: true})
+    navigator.geolocation.getCurrentPosition(updateGps, e => console.log(e), {timeout: 5_000, enableHighAccuracy: true})
 }
 
 function updateGps(pos) {
