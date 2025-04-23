@@ -1,34 +1,54 @@
-import {coordinates, lastGpsPing, speed, time, tripDistance,gpsData} from "$lib/stores/Data.js";
+import {coordinates, lastGpsPing, speed, time, tripDistance, gpsData} from "$lib/stores/Data.js";
 import {get, writable} from "svelte/store";
 
 export const allowGps = writable(false);
+export const calcGps = writable(true);
+let refreshTimer = null;
 
 export function initGps() {
     if ("geolocation" in navigator && get(allowGps)) {
         navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 5000, enableHighAccuracy: true})
+        clearInterval(refreshTimer)
+        refreshTimer = setInterval(refreshGps, 1000);
     } else {
         console.log("Gps is not available")
     }
 }
 
-function updateGps(pos) {
-    console.log(pos)
-    updatePosition(pos.coords)
-    gpsData.set({time:new Date().valueOf(),pos})
+function refreshGps(){
+    navigator.geolocation.getCurrentPosition(updateGps, e => console.log(e), {timeout: 5000, enableHighAccuracy: true})
 }
 
-function updatePosition(coords) {
-    if (coords.speed)
-        speed.set(coords.speed)
+function updateGps(pos) {
+    //console.log(pos)
+    updatePosition(pos)
+    gpsData.set({time: new Date().valueOf(), pos})
+}
 
+function updatePosition(pos) {
+    const coords = pos.coords
     if (coords.latitude && coords.longitude) {
         let lastCoords = get(coordinates)
-        if (lastCoords) {
-            let dist = calcCrow(lastCoords.lat, lastCoords.lon, coords.latitude, coords.longitude)
-            tripDistance.update(value => value + dist)
+        if (lastCoords && lastCoords.lon && lastCoords.lat) {
+            let distKm = calcCrow(lastCoords.lat, lastCoords.lon, coords.latitude, coords.longitude)
+            tripDistance.update(value => value + distKm)
+
+            if(get(calcGps)){
+                let timeDelta = pos.timestamp - lastCoords.timestamp
+                if(timeDelta > 0.0) {
+                    speed.set(distKm / (timeDelta / (1_000*60*60)))
+                }
+                console.log(distKm, timeDelta, pos.timestamp, lastCoords.timestamp, lastCoords)
+            }
         }
-        coordinates.set({lat: coords.latitude, lon: coords.longitude})
+        coordinates.set({timestamp: pos.timestamp, lat: coords.latitude, lon: coords.longitude})
         lastGpsPing.set(new Date().valueOf())
+        console.log(get(coordinates))
+    }
+
+    if (coords.speed){
+        console.log("Setting speed", coords.speed)
+        speed.set(coords.speed)
     }
 }
 

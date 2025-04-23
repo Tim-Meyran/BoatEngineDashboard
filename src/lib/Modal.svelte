@@ -1,6 +1,6 @@
 <script>
     import {demoMode, timeSinceLastGps, resetTrip, resetData, gpsData} from "$lib/stores/Data.js";
-    import {initGps} from "$lib/stores/Gps.js";
+    import {initGps,calcGps} from "$lib/stores/Gps.js";
 
     export let open = false
 
@@ -34,6 +34,10 @@
                 <label>
                     <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$demoMode}/>
                     Demo Mode
+                </label>
+                <label>
+                    <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$calcGps}/>
+                    Calculate GPS
                 </label>
 
             </fieldset>

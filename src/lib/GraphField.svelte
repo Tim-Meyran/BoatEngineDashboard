@@ -20,7 +20,7 @@
                 {value.toLocaleString(undefined, {
                     minimumFractionDigits: digitsFraction,
                     maximumFractionDigits: digitsFraction
-                }).padStart(digitsSignificant, '0')} <i>{unit}</i></kbd>
+                }).padStart(digitsSignificant, '0')}<i>{unit}</i></kbd>
         </div>
 
     </header>

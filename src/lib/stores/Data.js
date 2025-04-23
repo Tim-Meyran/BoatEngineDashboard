@@ -64,7 +64,7 @@ export function resetData() {
     lambda.set(0)
 
     maxSpeed.set(0)
-    coordinates.set(0)
+    coordinates.set({})
     tripDistance.set(0)
     lastGpsPing.set(0)
     timeSinceLastGps.set(0)
@@ -91,6 +91,7 @@ function updateTime() {
         voltage.update(old => Math.min(Math.max(10.4, old + -0.1 + Math.random() * 0.2), 14.8))
         lambda.update(old => Math.min(Math.max(0.7, old + -0.1 + Math.random() * 0.1), 1.2))
         coordinates.update(({lat, lon}) => ({
+            timestamp: new Date().getMilliseconds(),
             lat: Math.min(Math.max(-20, lat + -0.001 + Math.random() * 0.002), 20),
             lon: Math.min(Math.max(-20, lon + -0.001 + Math.random() * 0.002), 20)
         }))
