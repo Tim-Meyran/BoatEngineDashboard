@@ -3,12 +3,13 @@
     import {
         lastGpsPing, timeSinceLastGps, maxRpm, maxSpeed
     } from "$lib/stores/Data.js";
-    import {initGps} from "$lib/stores/Gps.js";
+    import {initGps,allowGps} from "$lib/stores/Gps.js";
 
     export let open = true
 
     function enableGps() {
         open = false
+        $allowGps = true
         initGps()
     }
 </script>

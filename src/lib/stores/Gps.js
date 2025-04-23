@@ -1,9 +1,11 @@
-import {coordinates, lastGpsPing, speed, time, tripDistance} from "$lib/stores/Data.js";
-import {get} from "svelte/store";
+import {coordinates, lastGpsPing, speed, time, tripDistance,gpsData} from "$lib/stores/Data.js";
+import {get, writable} from "svelte/store";
+
+export const allowGps = writable(false);
 
 export function initGps() {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 5000})
+    if ("geolocation" in navigator && get(allowGps)) {
+        navigator.geolocation.watchPosition(updateGps, e => console.log(e), {timeout: 5000, enableHighAccuracy: true})
     } else {
         console.log("Gps is not available")
     }
@@ -12,6 +14,7 @@ export function initGps() {
 function updateGps(pos) {
     console.log(pos)
     updatePosition(pos.coords)
+    gpsData.set({time:new Date().valueOf(),pos})
 }
 
 function updatePosition(coords) {

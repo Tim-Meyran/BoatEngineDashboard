@@ -1,5 +1,5 @@
 <script>
-    import {demoMode, timeSinceLastGps, resetTrip, resetData} from "$lib/stores/Data.js";
+    import {demoMode, timeSinceLastGps, resetTrip, resetData, gpsData} from "$lib/stores/Data.js";
     import {initGps} from "$lib/stores/Gps.js";
 
     export let open = false
@@ -14,8 +14,8 @@
 
 </script>
 
-<dialog open="{open}">
-    <article>
+<dialog open="{open}" style="flex-direction: column">
+        <article>
         <header>
             <button aria-label="Close" rel="prev" on:click={e => open = false}></button>
             <p>
@@ -38,6 +38,13 @@
 
             </fieldset>
         </form>
+
+
+    </article>
+
+    <article>
+        <h1>GPS Data</h1>
+        <p>{JSON.stringify(gpsData)}</p>
 
     </article>
 </dialog>

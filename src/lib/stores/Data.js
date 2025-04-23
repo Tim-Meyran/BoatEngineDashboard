@@ -19,6 +19,7 @@ export const tripDistance = writable(0);
 export const time = writable("");
 export const lastGpsPing = writable(new Date().valueOf());
 export const timeSinceLastGps = writable(new Date().valueOf());
+export const gpsData = writable({});
 
 time.subscribe(e => {
     timeSinceLastGps.set(Math.round(new Date().valueOf() - get(lastGpsPing)) / 1000)

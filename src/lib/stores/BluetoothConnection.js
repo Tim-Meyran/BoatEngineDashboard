@@ -1,4 +1,4 @@
-import {bytes, demoMode, resetData} from "$lib/stores/Data.js";
+import {bytes, demoMode, resetData,gpsData} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
 import {get, writable} from "svelte/store";
 import {initGps} from "$lib/stores/Gps.js";
