@@ -41,7 +41,7 @@ function updatePosition(pos) {
                 console.log(distKm, timeDelta, pos.timestamp, lastCoords.timestamp, lastCoords)
             }
         }
-        coordinates.set({timestamp: pos.timestamp, lat: coords.latitude, lon: coords.longitude})
+        coordinates.set({timestamp: pos.timestamp, lat: coords.latitude, lon: coords.longitude, accuracy: coords.accuracy})
         lastGpsPing.set(new Date().valueOf())
         console.log(get(coordinates))
     }

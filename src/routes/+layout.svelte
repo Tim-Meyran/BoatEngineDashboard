@@ -14,6 +14,8 @@
 
     let showOptions = false
 
+
+
 </script>
 
 <div class="app">
@@ -27,18 +29,7 @@
 
             <ul>
                 <!--{#if $connected}-->
-                    <li>
-                        <label>
-                            Map Switch
-                            <input name="terms" type="checkbox" role="switch" bind:checked={$mapSwitch}/>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Lambda Heater
-                            <input name="terms" type="checkbox" role="switch" bind:checked={$lambdaHeater}/>
-                        </label>
-                    </li>
+
                 <!--{/if}-->
                 <li>
                     {#if $connected}

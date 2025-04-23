@@ -1,5 +1,13 @@
 <script>
-    import {demoMode, timeSinceLastGps, resetTrip, resetData, gpsData} from "$lib/stores/Data.js";
+    import {
+        demoMode,
+        timeSinceLastGps,
+        resetTrip,
+        resetData,
+        gpsData,
+        mapSwitch,
+        lambdaHeater
+    } from "$lib/stores/Data.js";
     import {initGps,calcGps} from "$lib/stores/Gps.js";
 
     export let open = false
@@ -31,6 +39,16 @@
                 {#if $timeSinceLastGps > 5}
                     <input class="contrast" type="button" value="GPS" on:click={initGps}>
                 {/if}
+
+                <label>
+                    <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$mapSwitch}/>
+                    Map Switch
+                </label>
+                <label>
+                    <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$lambdaHeater}/>
+                    Lambda Heater
+                </label>
+                <br>
                 <label>
                     <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$demoMode}/>
                     Demo Mode
