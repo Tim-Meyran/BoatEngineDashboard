@@ -60,8 +60,8 @@ function updatePosition(pos) {
     }
 
     if (coords.speed){
-        console.log("Setting speed", coords.speed)
-        speed.set(coords.speed)
+        console.log("Setting speed", coords.speed * 3.6)
+        speed.set(coords.speed * 3.6)
     }
 }
 
