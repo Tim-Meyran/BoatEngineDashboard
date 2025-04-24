@@ -1,8 +1,7 @@
 import {coordinates, lastGpsPing, speed, time, tripDistance, gpsData} from "$lib/stores/Data.js";
 import {get, writable} from "svelte/store";
+import {allowGps, calcGps, useGpsPolling} from "$lib/stores/Config.js";
 
-export const allowGps = writable(false);
-export const calcGps = writable(true);
 let refreshTimer = null;
 
 const options = {
@@ -14,7 +13,7 @@ const options = {
 export function initGps() {
     if ("geolocation" in navigator && get(allowGps)) {
         navigator.geolocation.watchPosition(updateGps, e => console.log(e), options)
-        //clearInterval(refreshTimer)
+        clearInterval(refreshTimer)
         refreshTimer = setInterval(refreshGps, 200);
     } else {
         console.log("Gps is not available")
@@ -22,6 +21,7 @@ export function initGps() {
 }
 
 function refreshGps(){
+    if(!get(useGpsPolling)) return
     if ("geolocation" in navigator && get(allowGps)) {
         navigator.geolocation.getCurrentPosition(updateGps,
             (error) => {

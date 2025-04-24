@@ -1,11 +1,9 @@
 <script>
+    import {allowGps} from "$lib/stores/Config.js";
+    import {initGps} from "$lib/stores/Gps.js";
+    import {get} from "svelte/store";
 
-    import {
-        lastGpsPing, timeSinceLastGps, maxRpm, maxSpeed
-    } from "$lib/stores/Data.js";
-    import {initGps,allowGps} from "$lib/stores/Gps.js";
-
-    export let open = true
+    export let open = !get(allowGps)
 
     function enableGps() {
         open = false

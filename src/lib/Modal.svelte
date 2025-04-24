@@ -8,7 +8,8 @@
         mapSwitch,
         lambdaHeater
     } from "$lib/stores/Data.js";
-    import {initGps, calcGps, allowGps} from "$lib/stores/Gps.js";
+    import {calcGps, allowGps, useGpsPolling} from "$lib/stores/Config.js";
+    import {initGps} from "$lib/stores/Gps.js";
 
     export let open = false
 
@@ -55,7 +56,11 @@
                 </label>
                 <label>
                     <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$calcGps}/>
-                    Calculate GPS
+                    Calculate GPS Speed
+                </label>
+                <label>
+                    <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$useGpsPolling}/>
+                    GPS Polling
                 </label>
 
             </fieldset>
