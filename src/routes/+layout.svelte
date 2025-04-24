@@ -19,7 +19,6 @@
 </script>
 
 <div class="app">
-
     <header class="container">
         <nav>
             <ul>

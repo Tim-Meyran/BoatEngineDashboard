@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-    <title>Home</title>
+    <title>Dashboard</title>
     <meta name="Dashboard" content="Dashboard"/>
 </svelte:head>
 

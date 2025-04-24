@@ -2,8 +2,13 @@
     import {allowGps} from "$lib/stores/Config.js";
     import {initGps} from "$lib/stores/Gps.js";
     import {get} from "svelte/store";
+    import {onMount} from "svelte";
 
     export let open = !get(allowGps)
+
+    onMount(() => {
+        initGps()
+    })
 
     function enableGps() {
         open = false
