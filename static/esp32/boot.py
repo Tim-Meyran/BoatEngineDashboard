@@ -28,7 +28,6 @@ def connectWifi():
     from ota import update
     otaUpdate()
 
-
     #import mip
     #mip.install("aioble")
     print("Starting webREPL")

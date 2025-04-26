@@ -12,7 +12,7 @@ def otaUpdate():
 
     ota_host = 'https://tim-meyran.github.io/BoatEngineDashboard/esp32/'
     project_name = 'BoatEngingeDashboard'
-    filenames = ['boot.py', 'main.py','ota.py']
+    filenames = ['main.py','ota.py'] # 'boot.py', 
 
     print("checking for updates...")
     micropython_ota.ota_update(ota_host, project_name, filenames, use_version_prefix=False, hard_reset_device=True, soft_reset_device=False, timeout=5)
