@@ -10,8 +10,11 @@
     } from "$lib/stores/Data.js";
     import {calcGps, allowGps, useGpsPolling} from "$lib/stores/Config.js";
     import {initGps} from "$lib/stores/Gps.js";
+    import {onMount} from "svelte";
 
     export let open = false
+
+    let versionString = ""
 
     function toggleFullScreen() {
         if (!document.fullscreenElement) {
@@ -21,6 +24,16 @@
         }
     }
 
+    onMount(() =>
+        getVersion()
+    )
+
+    async function getVersion(){
+        const versionFile = await fetch('esp32/version');
+        versionString = await versionFile.text()
+        console.log("Got Version: ", versionString)
+    }
+
 </script>
 
 <dialog open="{open}" style="flex-direction: column">
@@ -28,7 +41,7 @@
         <header>
             <button aria-label="Close" rel="prev" on:click={e => open = false}></button>
             <p>
-                <strong>🚤 Options</strong>
+                <strong>Dashboard - {versionString} 🚤 </strong>
             </p>
         </header>
 
@@ -71,9 +84,7 @@
 
     <article>
         <h1>GPS Data</h1>
-        <p>{JSON.stringify($allowGps)}</p>
         <p>{JSON.stringify($gpsData)}</p>
-
     </article>
 </dialog>
 
