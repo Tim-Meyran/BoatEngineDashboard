@@ -2,7 +2,7 @@
 
 def connectWifi():
     from network import WLAN, STA_IF
-    from wifi_creds import SSID, SSI_PASSWORD
+    from wifi_creds import SSID, SSID_PASSWORD
     import time
 
     sta_if = WLAN(STA_IF)
@@ -10,7 +10,7 @@ def connectWifi():
     if not sta_if.isconnected():
         print('connecting to network...')
         sta_if.active(True)
-        sta_if.connect("Fritz!Box 7530 MK", "28607220827517239666")
+        sta_if.connect(SSID,SSID_PASSWORD)
         
         for x in range(6):
             time.sleep(1)
