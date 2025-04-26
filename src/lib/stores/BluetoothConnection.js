@@ -134,7 +134,6 @@ function onDisconnected() {
     connected.set(false)
     connecting.set(false)
     resetData()
-
 }
 
 /* Utils */
