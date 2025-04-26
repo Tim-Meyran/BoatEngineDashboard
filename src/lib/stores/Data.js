@@ -35,7 +35,7 @@ export const mapSwitch = writable(false);
 export const lambdaHeater = writable(false);
 
 bytes.subscribe(e => {
-    console.log('Update Bytes', e)
+    //console.log('Update Bytes', e)
     if (e && e.byteLength === 10) {
         rpm.set(e.getUint16(0))
         maxRpm.set(e.getUint16(2))

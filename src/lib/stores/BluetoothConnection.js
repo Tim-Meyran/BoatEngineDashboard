@@ -1,4 +1,4 @@
-import {bytes, demoMode, resetData,gpsData} from "$lib/stores/Data.js";
+import {bytes, demoMode, resetData, gpsData, mapSwitch, lambdaHeater} from "$lib/stores/Data.js";
 import {dev} from "$app/environment";
 import {get, writable} from "svelte/store";
 import {initGps} from "$lib/stores/Gps.js";
@@ -46,11 +46,26 @@ export async function requestConnect() {
         await characteristic.startNotifications()
         characteristic.addEventListener('characteristicvaluechanged', e => {
             const b = characteristic.value
-            console.log("Received ", b)
+            //console.log("Received ", b)
             bytes.set(b)
         });
         connected.set(true)
         connecting.set(false)
+
+        await readOutputs()
+
+        mapSwitch.subscribe(v => {
+            const byteArray = new Uint8Array(2);
+            byteArray[0] = v ? 1 : 0;
+            byteArray[1] = get(lambdaHeater) ? 1 : 0;
+            send(byteArray)
+        })
+        lambdaHeater.subscribe(v => {
+            const byteArray = new Uint8Array(2);
+            byteArray[0] = get(mapSwitch) ? 1 : 0;
+            byteArray[1] = v ? 1 : 0;
+            send(byteArray)
+        })
     } catch (error) {
         console.log('Argh! ' + error);
         bluetoothDevice = null;
@@ -61,18 +76,30 @@ export async function requestConnect() {
     return bluetoothDevice
 }
 
-export async function send(value){
-    const characteristic = await service.getCharacteristic('heart_rate_control_point')
-    await characteristic.writeValue(value)
-      /*  .then(characteristic => {
-            // Writing 1 is the signal to reset energy expended.
-            const resetEnergyExpended = Uint8Array.of(1);
-            return characteristic.writeValue(resetEnergyExpended);
-        })
+export async function readOutputs() {
+    if(!ble_service)return
+    const characteristic = await ble_service.getCharacteristic('19b10002-e8f2-537e-4f6c-d104768a1214');
+    const value = await characteristic.readValue()
+    console.log(value)
+    if(value && value.length === 2) {
+        const byte1 = value.getUint8(0);
+        const byte2 = value.getUint8(1);
+        mapSwitch.set(byte1 === 0x01)
+        lambdaHeater.set(byte2 === 0x01)
+    }
+}
+
+export async function send(value) {
+    if(!ble_service)return
+    //const characteristic = await service.getCharacteristic('heart_rate_control_point')
+    const characteristic = await ble_service.getCharacteristic('19b10002-e8f2-537e-4f6c-d104768a1214');
+    characteristic.writeValue(value)//Uint8Array.of(1);
         .then(_ => {
-            console.log('Energy expended has been reset.');
+            console.log('Sent data');
         })
-        .catch(error => { console.error(error); });*/
+        .catch(error => {
+            console.error(error);
+        });
 }
 
 export function disconnect() {
@@ -98,14 +125,16 @@ export function disconnect() {
 
 function onDisconnected() {
     console.log('Bluetooth Device disconnected');
+    //alert("Lost Connection")
     ble_service = null
-    if (get(connected)) {
+    /*if (get(connected)) {
         console.log("Reconnect")
         requestConnect();
-    }
-    /*    connected.set(false)
-        connecting.set(false)
-    */
+    }*/
+    connected.set(false)
+    connecting.set(false)
+    resetData()
+
 }
 
 /* Utils */

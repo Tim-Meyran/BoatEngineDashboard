@@ -37,9 +37,9 @@
                 <input class="" type="button" value="Fullscreen" on:click={toggleFullScreen}>
                 <input class="secondary" type="button" value="Reset Trip" on:click={resetTrip}>
                 <input class="contrast pico-color-red-500" type="button" value="Clear Data" on:click={resetData}>
-                {#if $timeSinceLastGps > 5}
+                <!--{#if $timeSinceLastGps > 5}
                     <input class="contrast" type="button" value="GPS" on:click={initGps}>
-                {/if}
+                {/if}-->
 
                 <label>
                     <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$mapSwitch}/>
