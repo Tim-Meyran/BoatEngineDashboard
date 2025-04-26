@@ -10,7 +10,7 @@ def otaUpdate():
         mip.install('github:olivergregorius/micropython_ota/micropython_ota.py')
         import micropython_ota
 
-    ota_host = 'https://tim-meyran.github.io/BoatEngineDashboard/esp32/'
+    ota_host = 'https://tim-meyran.github.io/BoatEngineDashboard/esp32'
     project_name = 'BoatEngingeDashboard'
     filenames = ['main.py','ota.py'] # 'boot.py', 
 

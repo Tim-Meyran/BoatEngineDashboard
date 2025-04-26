@@ -25,7 +25,7 @@ def connectWifi():
     
     print('Connected! Network config:', sta_if.ifconfig())
 
-    from ota import update
+    from ota import otaUpdate
     otaUpdate()
 
     #import mip
