@@ -77,26 +77,28 @@ demoMode.subscribe(demo => {
 })
 
 function updateTime() {
-    const currentDate = new Date();
-    const datetime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
-    time.set(datetime)
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    time.set(`${hours}:${minutes}:${seconds}`)
 
     if (get(demoMode)) {
-        speed.update(old => Math.min(Math.max(0, old + -5.0 + Math.random() * 10.0), 150.0))
-        rpm.update(old => Math.min(Math.max(0, old + -50.0 + Math.random() * 100.0), 8500.0))
-        tmp1.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
-        tmp2.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
-        tmp3.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
-        tmp4.update(old => Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0))
-        voltage.update(old => Math.min(Math.max(10.4, old + -0.1 + Math.random() * 0.2), 14.8))
-        lambda.update(old => Math.min(Math.max(0.7, old + -0.1 + Math.random() * 0.1), 1.2))
+        speed.update(old => Math.round(Math.min(Math.max(0, old + -5.0 + Math.random() * 10.0), 150.0)))
+        rpm.update(old => Math.floor(Math.round(Math.min(Math.max(0, old + -50.0 + Math.random() * 100.0), 8500.0))))
+        tmp1.update(old => Math.floor(Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0)))
+        tmp2.update(old => Math.floor(Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0)))
+        tmp3.update(old => Math.floor(Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0)))
+        tmp4.update(old => Math.floor(Math.min(Math.max(0, old + -1.0 + Math.random() * 2.0), 150.0)))
+        voltage.update(old => Math.floor(Math.min(Math.max(10.4, old + -0.1 + Math.random() * 0.2), 14.8)))
+        lambda.update(old => Math.floor(Math.min(Math.max(0.7, old + -0.1 + Math.random() * 0.1), 1.2)))
         coordinates.update(({lat, lon}) => ({
             timestamp: new Date().getMilliseconds(),
             lat: Math.min(Math.max(-20, lat + -0.001 + Math.random() * 0.002), 20),
             lon: Math.min(Math.max(-20, lon + -0.001 + Math.random() * 0.002), 20)
         }))
     }
-    setTimeout(updateTime, 1000)
+    setTimeout(updateTime, 100)
 }
 
 updateTime()

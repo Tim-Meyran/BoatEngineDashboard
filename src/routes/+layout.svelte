@@ -8,14 +8,9 @@
     import {onMount} from "svelte";
     import Modal from "$lib/Modal.svelte";
     import RequestGps from "$lib/RequestGps.svelte";
-
     $: connectionString = $connected ? "Connected" : "Not connected"
     $: connectionBtnString = $connected ? "Connected" : "Not connected"
-
     let showOptions = false
-
-
-
 </script>
 
 <div class="app">
@@ -23,7 +18,7 @@
         <nav>
             <ul>
                 <!--<li><strong><kbd>DASHBOARD</kbd></strong></li>-->
-                <li>{$time}</li>
+                <li style="font-size:2rem;">{$time}</li>
             </ul>
 
             <ul>
@@ -62,11 +57,20 @@
     <main class="container">
         <slot/>
     </main>
-
-
 </div>
 
 <style>
+    .app{
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .container{
+        padding-right: 1rem;
+        padding-left: 1rem;
+        height: 100%;
+        max-width: 100vw;
+    }
 
     @media (min-width: 480px) {
         footer {

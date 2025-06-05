@@ -55,6 +55,13 @@
                 {/if}-->
 
                 <label>
+                    <a href="/tacho_layout" class="contrast">Tacho Layout</a>
+                </label>
+                <label>
+                    <a href="/" class="contrast">Old Layout</a>
+                </label>
+
+                <label>
                     <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$mapSwitch}/>
                     Map Switch
                 </label>
