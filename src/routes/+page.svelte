@@ -20,6 +20,7 @@
     <GraphField name="Temp4" value={$tmp4} unit="°C" digitsFraction="0"/>
     <GraphField name="Voltage" value={$voltage} unit="V" digitsFraction="1" min={10} max={16}/>
     <GraphField name="Lambda" value={$lambda} digitsFraction="2" min={0.68} max={1.36}/>
+    <GraphField name="Trip" value={$tripDistance} digitsFraction="2"/>
 </section>
 
 <!--<section>
@@ -30,11 +31,11 @@
     section {
         display: flex;
         flex-flow: row-reverse wrap;
-
     }
 
     .grid-container {
-        gap: 2.2rem;
+        gap: 2.0rem;
+        row-gap: 0.1rem;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
     }

@@ -49,7 +49,7 @@ function updatePosition(pos) {
             if(distKm > 0.0001 && get(calcGps)){
                 let timeDelta = pos.timestamp - lastCoords.timestamp
                 if(timeDelta > 0.001) {
-                    speed.set(distKm / (timeDelta / (1_000*60*60)))
+                    speed.set(Math.round(distKm / (timeDelta / (1_000*60*60))))
                 }
                 //console.log(distKm, timeDelta, pos.timestamp, lastCoords.timestamp, lastCoords)
             }
@@ -61,7 +61,7 @@ function updatePosition(pos) {
 
     if (coords.speed){
         console.log("Setting speed", coords.speed * 3.6)
-        speed.set(coords.speed * 3.6)
+        speed.set(Math.round(coords.speed * 3.6))
     }
 }
 
