@@ -12,6 +12,8 @@
     import {initGps} from "$lib/stores/Gps.js";
     import {onMount} from "svelte";
 
+    import {base} from "$app/paths"
+
     export let open = false
 
     let versionString = ""
@@ -28,7 +30,7 @@
         getVersion()
     )
 
-    async function getVersion(){
+    async function getVersion() {
         const versionFile = await fetch('esp32/version');
         versionString = await versionFile.text()
         console.log("Got Version: ", versionString)
@@ -37,7 +39,7 @@
 </script>
 
 <dialog open="{open}" style="flex-direction: column">
-        <article>
+    <article>
         <header>
             <button aria-label="Close" rel="prev" on:click={e => open = false}></button>
             <p>
@@ -53,13 +55,8 @@
                 <!--{#if $timeSinceLastGps > 5}
                     <input class="contrast" type="button" value="GPS" on:click={initGps}>
                 {/if}-->
-
-                <label>
-                    <a href="/tacho_layout" class="contrast">Tacho Layout</a>
-                </label>
-                <label>
-                    <a href="/" class="contrast">Old Layout</a>
-                </label>
+                <a href="{base}/tacho_layout" class="contrast">Tacho Layout</a>
+                <a href="{base}/" class="contrast">Old Layout</a>
 
                 <label>
                     <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$mapSwitch}/>
@@ -79,7 +76,8 @@
                     Calculate GPS Speed
                 </label>
                 <label>
-                    <input class="contrast" name="demoMode" type="checkbox" role="switch" bind:checked={$useGpsPolling}/>
+                    <input class="contrast" name="demoMode" type="checkbox" role="switch"
+                           bind:checked={$useGpsPolling}/>
                     GPS Polling
                 </label>
 
