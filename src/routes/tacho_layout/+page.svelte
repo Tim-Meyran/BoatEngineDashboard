@@ -41,21 +41,30 @@
             <div class="right">
                 <Label name="Voltage" value={$voltage} digitsSignificant="4" digitsFraction="1" unit="V"></Label>
                 <Label name="Lambda" value={$lambda} digitsSignificant="3" unit=""></Label>
-
-                <div class="switches">
-                    <fieldset>
-                        <label>
+            </div>
+            <div></div>
+            <div class="switches">
+                <fieldset>
+                    <label style="width:100%;" for="switches">
+                        <kbd class:pico-background-red-100={!$mapSwitch}
+                             class:pico-background-green-100={$mapSwitch}
+                             style="width:100%;">
                             <input class="contrast" name="demoMode" type="checkbox" role="switch"
                                    bind:checked={$mapSwitch}/>
-                            <!--{#if $mapSwitch}<kbd>Map</kbd>{:else}Map{/if}-->Map
-                        </label>
-                        <label>
+                            Map
+                        </kbd>
+                    </label>
+
+                    <label style="width:100%;">
+                        <kbd class:pico-background-red-100={!$lambdaHeater}
+                             class:pico-background-green-100={$lambdaHeater}
+                             style="width:100%">
                             <input class="contrast" name="demoMode" type="checkbox" role="switch"
                                    bind:checked={$lambdaHeater}/>
                             Heater
-                        </label>
-                    </fieldset>
-                </div>
+                        </kbd>
+                    </label>
+                </fieldset>
             </div>
         </section>
     </div>
@@ -92,8 +101,13 @@
         font-size: 1.5rem;
     }
 
+    kbd{
+        font-size:2.5rem;
+    }
+
     .switches {
         display: flex;
+        min-width: 10em;
         flex-direction: column;
         gap: 1rem;
         margin-top: 2rem;

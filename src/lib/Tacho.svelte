@@ -6,8 +6,8 @@
     export let endAngle = 20;
     export let ticks = 10;
 
-    export let startNeedle = 40;
-    export let endNeedle = 70;
+    export let startNeedle = 60;
+    export let endNeedle = 85;
     export let digitsSignificant = 0
 
     $: angle = (value / max) * (endAngle - startAngle) + startAngle;
@@ -46,7 +46,7 @@
     />
 
     <!-- Wert-Anzeige -->
-    <text x="100" y="110" text-anchor="middle" font-size="28" fill="white" font-family="monospace">
+    <text x="100" y="110" text-anchor="middle" font-size="42" fill="white" font-family="monospace">
         {String(value).padStart(digitsSignificant, '0')}
     </text>
 

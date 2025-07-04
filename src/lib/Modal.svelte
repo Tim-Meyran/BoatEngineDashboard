@@ -31,8 +31,8 @@
     )
 
     async function getVersion() {
-        const versionFile = await fetch('esp32/version');
-        versionString = await versionFile.text()
+        //const versionFile = await fetch('esp32/version');
+        versionString = "test"//await versionFile.text()
         console.log("Got Version: ", versionString)
     }
 

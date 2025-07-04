@@ -8,20 +8,19 @@
 </script>
 
 <span>
-    <strong>{name}</strong>
     <kbd>
+    <strong>{name}</strong>
         {value.toLocaleString(undefined, {
             minimumFractionDigits: digitsFraction,
             maximumFractionDigits: digitsFraction
         }).padStart(digitsSignificant, '0')}<i>{unit}</i>
     </kbd>
     </span>
-
-
 <style>
 
     kbd{
-        font-size:2rem;
+        font-size:2.5rem;
+        background-color: white;
     }
 
 </style>
